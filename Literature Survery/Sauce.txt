@@ -1,0 +1,12 @@
+[1] https://gssrr.org/index.php/JournalOfBasicAndApplied/article/view/10719
+
+[2] https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9091176
+
+[3] https://www.researchgate.net/publication/270671655_Forecasting_Daily_Precipitation_Using_Hybrid_Model_of_Wavelet-Artificial_Neural_Network_and_Comparison_with_Adaptive_Neurofuzzy_Inference_System_Case_Study_Verayneh_Station_Nahavand
+
+[4] https://www.researchgate.net/profile/Wayan_Mahmudy/publication/319900666_Rainfall_Prediction_Using_Hybrid_Adaptive_Neuro_Fuzzy_Inference_System_ANFIS_and_Genetic_Algorithm/links/59c0ad99458515e9cfd59111/Rainfall-Prediction-Using-Hybrid-Adaptive-Neuro-Fuzzy-Inference-System-ANFIS-and-Genetic-Algorithm.pdf
+
+[5] https://www.sciencedirect.com/science/article/abs/pii/S0022169417304031
+
+[6] 
+
