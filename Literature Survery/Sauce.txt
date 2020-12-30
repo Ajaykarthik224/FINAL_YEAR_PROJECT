@@ -8,6 +8,8 @@
 
 [5] https://www.sciencedirect.com/science/article/abs/pii/S0022169417304031
 
+https://nhess.copernicus.org/articles/19/2513/2019/nhess-19-2513-2019.pdf
+
 [6] https://researchoutput.ncku.edu.tw/en/publications/comparison-of-random-forests-and-support-vector-machine-for-real-
 
 
