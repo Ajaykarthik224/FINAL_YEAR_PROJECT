@@ -6,7 +6,5 @@ url = f'https://api.data.gov.in/resource/8e0bd482-4aba-4d99-9cb9-ff124f6f1c2f?ap
 
 data = requests.get(url).json()
 
-print(data)
-
 with open('data.json', 'w') as f:
     json.dump(data, f, indent=4)
