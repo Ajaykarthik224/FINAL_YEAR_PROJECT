@@ -6,7 +6,7 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
+import json
 # Read the csv file with the rainfall data
 data = pd.read_csv('data/data_in_csv.csv')
 
@@ -68,12 +68,62 @@ print("Predicted Values for the Floods:")
 y_predict = clf.predict(x_test)
 print(y_predict)
 
+data_in_json = open('data/data.json', 'r')
+data_in_json = json.load(data_in_json)
+state_names_list = list()
+state_names_set = set()
+
+for values in data_in_json['records']:
+    state_names_set.add(values['subdivision'])
+
+for i in state_names_set:
+    state_names_list.append(i)
+
+state_names_list.sort()
+
+predicted_values_array = [y_predict[i:i + 17]
+                          for i in range(0, len(y_predict), 17)]
+predicted_values_array = predicted_values_array[:36]
+print("Each state values:", len(predicted_values_array))
+print("State list length:", len(state_names_list))
+
+all_states_predicted = []
+
+for state_name, predicted_value_for_each_state in enumerate(predicted_values_array):
+    predicted_state_values = {"subdivision": state_names_list[state_name], "jan": predicted_value_for_each_state[0],
+                              "feb": predicted_value_for_each_state[1],
+                              "mar": predicted_value_for_each_state[2],
+                              "apr": predicted_value_for_each_state[3],
+                              "may": predicted_value_for_each_state[4],
+                              "jun": predicted_value_for_each_state[5],
+                              "jul": predicted_value_for_each_state[6],
+                              "aug": predicted_value_for_each_state[7],
+                              "sep": predicted_value_for_each_state[8],
+                              "oct": predicted_value_for_each_state[9],
+                              "nov": predicted_value_for_each_state[10],
+                              "dec": predicted_value_for_each_state[11],
+                              "annual": predicted_value_for_each_state[12],
+                              "jf": predicted_value_for_each_state[13],
+                              "mam": predicted_value_for_each_state[14],
+                              "jjas": predicted_value_for_each_state[15],
+                              "ond": predicted_value_for_each_state[16], }
+
+    all_states_predicted.append(predicted_state_values)
+
+# all_states_predicted_dict = {"records": []}
+# for predicted_state_value_objects in all_states_predicted:
+#     all_states_predicted_dict['records'].append(predicted_state_value_objects)
+
+print(all_states_predicted[1])
+
+state_selected = 'Andaman & Nicobar Islands'
+month_selected = 'feb'
+
+print()
+
 print("Actual Values for the Floods:")
 print(y_test)
 
-
-print("List of the Predicted Values:")
-print(y_predict)
 
 x_train_std = minmax.fit_transform(x_train)
 x_test_std = minmax.fit_transform(x_test)
@@ -87,4 +137,4 @@ print(knn_acc)
 print("\nAccuracy Score:%f" % (accuracy_score(y_test, y_predict)*100))
 print("Recall Score:%f" % (recall_score(y_test, y_predict)*100))
 print("ROC score:%f" % (roc_auc_score(y_test, y_predict)*100))
-print(confusion_matrix(y_test, y_predict))
+# print(confusion_matrix(y_test, y_predict))
