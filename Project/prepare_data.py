@@ -50,7 +50,7 @@ print(y)
 # Using SKLearn to prepare the model
 
 minmax = preprocessing.MinMaxScaler(feature_range=(0, 1))
-print(minmax.fit(x).transform(x))
+# print(minmax.fit(x).transform(x))
 
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
@@ -64,9 +64,9 @@ y_test = y_test.astype('int')
 clf = neighbors.KNeighborsClassifier()
 clf.fit(x_train, y_train)
 
-print("Predicted Values for the Floods:")
+# print("Predicted Values for the Floods:")
 y_predict = clf.predict(x_test)
-print(y_predict)
+# print(y_predict)
 
 data_in_json = open('data/data.json', 'r')
 data_in_json = json.load(data_in_json)
@@ -116,13 +116,55 @@ for state_name, predicted_value_for_each_state in enumerate(predicted_values_arr
 
 print(all_states_predicted[1])
 
-state_selected = 'Andaman & Nicobar Islands'
+all_states_list = {
+    "Andaman & Nicobar Islands": 0,
+    "Arunachal Pradesh": 1,
+    "Assam & Meghalaya": 2,
+    "Bihar": 3,
+    "Chhattisgarh": 4,
+    "Coastal Andhra Pradesh": 5,
+    "Coastal Karnataka": 6,
+    "East Madhya Pradesh": 7,
+    "East Rajasthan": 8,
+    "East Uttar Pradesh": 9,
+    "Gangetic West Bengal": 10,
+    "Gujarat Region": 11,
+    "Haryana Delhi & Chandigarh": 12,
+    "Himachal Pradesh": 13,
+    "Jammu & Kashmir": 14,
+    "Jharkhand": 15,
+    "Kerala": 16,
+    "Konkan & Goa": 17,
+    "Lakshadweep": 18,
+    "Madhya Maharashtra": 19,
+    "Matathwada": 20,
+    "Naga Mani Mizo Tripura": 21,
+    "North Interior Karnataka": 22,
+    "Orissa": 23,
+    "Punjab": 24,
+    "Rayalseema": 25,
+    "Saurashtra & Kutch": 26,
+    "South Interior Karnataka": 27,
+    "Sub Himalayan West Bengal & Sikkim": 28,
+    "Tamil Nadu": 29,
+    "Telangana": 30,
+    "Uttarakhand": 31,
+    "Vidarbha": 32,
+    "West Madhya Pradesh": 33,
+    "West Rajasthan": 34,
+    "West Uttar Pradesh": 35
+}
+
+
+state_selected = 'Arunachal Pradesh'
+print("State:", all_states_list[state_selected])
 month_selected = 'feb'
 
-print()
+print("Prediction: Will it flood?:",
+      all_states_predicted[all_states_list[state_selected]][month_selected])
 
-print("Actual Values for the Floods:")
-print(y_test)
+# print("Actual Values for the Floods:")
+# print(y_test)
 
 
 x_train_std = minmax.fit_transform(x_train)
