@@ -29,13 +29,13 @@ class knn_algorithm:
                                   cv=3, scoring='accuracy', n_jobs=-1)
         knn_proba = cross_val_predict(
             clf, x_train_std, self.y_train, cv=3, method='predict_proba')
-        print(knn_acc)
 
-        print("\nAccuracy Score:%f" %
-              (accuracy_score(self.y_test, y_predict)*100))
-        print("Recall Score:%f" %
-              (recall_score(self.y_test, y_predict)*100))
-        print("ROC score:%f" % (roc_auc_score(self.y_test, y_predict)*100))
+        # print(knn_acc)
+        # print("\nAccuracy Score:%f" %
+        #       (accuracy_score(self.y_test, y_predict)*100))
+        # print("Recall Score:%f" %
+        #       (recall_score(self.y_test, y_predict)*100))
+        # print("ROC score:%f" % (roc_auc_score(self.y_test, y_predict)*100))
         # print(confusion_matrix(self.y_test, self.y_predict))
 
         return [y_predict, accuracy_score(self.y_test, y_predict)*100]
