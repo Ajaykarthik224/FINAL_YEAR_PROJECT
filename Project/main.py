@@ -5,6 +5,7 @@ from frontend_gui import frontend_gui
 from get_prediction_and_accuracy import get_prediction_and_accuracy
 from logistic_regression import logistic_regression
 from support_vector_algorithm import support_vector_algorithm
+from decision_tree import decision_tree
 
 # Initalizing the prepare data by passing the CSV data file and getting the x and y values by calling the function.
 prepare_object = prepare_data('data/data_in_csv.csv')
@@ -52,3 +53,14 @@ get_prediction_and_accuracy_object = get_prediction_and_accuracy(
 [prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
 print(
     f"Support Vector Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
+
+
+# Initializing the Decision Tree Algorithm by providing x_train, x_test, y_train, y_test and getting the predicted values.
+decision_tree_object = decision_tree(x_train, x_test, y_train, y_test)
+[y_predict, accuracy_score] = decision_tree_object.dt_predict()
+
+get_prediction_and_accuracy_object = get_prediction_and_accuracy(
+    y_predict, accuracy_score, state_selected, month_selected)
+[prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
+print(
+    f"Decision Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
