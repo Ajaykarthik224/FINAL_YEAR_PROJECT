@@ -4,5 +4,3 @@ prepare_data_temp.py
 config.py
 *.json
 *.csv
-.vscode
-__pycache__
