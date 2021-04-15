@@ -1,3 +1,6 @@
 *.pyc
 prepare_data_temp.py
 *.txt
+config.py
+*.json
+*.csv
