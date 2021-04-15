@@ -6,7 +6,10 @@ from get_prediction_and_accuracy import get_prediction_and_accuracy
 from logistic_regression import logistic_regression
 from support_vector_algorithm import support_vector_algorithm
 from decision_tree import decision_tree
+from print_to_file import print_to_file
+import os
 
+os.remove("OutputFile.txt")
 # Initalizing the prepare data by passing the CSV data file and getting the x and y values by calling the function.
 prepare_object = prepare_data('data/data_in_csv.csv')
 [x, y] = prepare_object.prepare()
@@ -24,13 +27,12 @@ input_object = frontend_gui()
 knn_object = knn_algorithm(x_train, x_test, y_train, y_test)
 [y_predict, accuracy_score] = knn_object.knn_predict()
 
-# Getting the prediction and accuracy by passing the y_predict value and getting the result
 get_prediction_and_accuracy_object = get_prediction_and_accuracy(
     y_predict, accuracy_score, state_selected, month_selected)
 [prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
 print(
     f"KNN Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
-
+print_to_file("K Nearest Neighbor", prediction, accuracy).print_output_file()
 
 # Initializing the Logistic Regression Algorithm by providing x_train, x_test, y_train, y_test and getting the predicted values.
 lr_object = logistic_regression(x_train, x_test, y_train, y_test)
@@ -41,7 +43,7 @@ get_prediction_and_accuracy_object = get_prediction_and_accuracy(
 [prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
 print(
     f"Logistic Regression Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
-
+print_to_file("Logistic Regression", prediction, accuracy).print_output_file()
 
 # Initializing the Support Vector Algorithm by providing x_train, x_test, y_train, y_test and getting the predicted values.
 support_vector_object = support_vector_algorithm(
@@ -53,7 +55,7 @@ get_prediction_and_accuracy_object = get_prediction_and_accuracy(
 [prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
 print(
     f"Support Vector Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
-
+print_to_file("Support Vector", prediction, accuracy).print_output_file()
 
 # Initializing the Decision Tree Algorithm by providing x_train, x_test, y_train, y_test and getting the predicted values.
 decision_tree_object = decision_tree(x_train, x_test, y_train, y_test)
@@ -63,4 +65,5 @@ get_prediction_and_accuracy_object = get_prediction_and_accuracy(
     y_predict, accuracy_score, state_selected, month_selected)
 [prediction, accuracy] = get_prediction_and_accuracy_object.display_result()
 print(
-    f"Decision Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
+    f"Decision Tree Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
+print_to_file("Decision Tree", prediction, accuracy).print_output_file()
