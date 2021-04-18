@@ -1,22 +1,13 @@
 from tkinter import *
 from tkinter import ttk
+from main import main
+import json
+
+# Global variables
 window = Tk()
-
-
-window.title("Flood Prediction using ML")
-width = window.winfo_screenwidth()
-height = window.winfo_screenheight()
-
-window.geometry("%dx%d" % (width-50, height-50))
-window.configure(background="grey")
-
-Label(window, text="Flood Prediction using Machine Learning",
-      font=("Arial", 25)).grid(row=0, column=5)
-
-
 state_options = [
     "Andaman & Nicobar Islands",
-    "Arunachal Pradesh"
+    "Arunachal Pradesh",
     "Assam & Meghalaya",
     "Bihar",
     "Chhattisgarh",
@@ -53,41 +44,97 @@ state_options = [
     "West Uttar Pradesh"
 ]
 
-month_options = [
-    "jan",
-    "feb",
-    "mar",
-    "apr",
-    "may",
-    "jun",
-    "jul",
-    "aug",
-    "sep",
-    "oct",
-    "nov",
-    "dec",
-    "annual",
-    "jf",
-    "mam",
-    "jjas",
-    "ond"
-]
+month_options = {
+    "January": "jan",
+    "February": "feb",
+    "March": "mar",
+    "April": "apr",
+    "May": "may",
+    "June": "jun",
+    "July": "jul",
+    "August": "aug",
+    "September": "sep",
+    "October": "oct",
+    "November": "nov",
+    "December": "dec",
+    "Annual": "annual",
+    "January - February": "jf",
+    "March - April - May": "mam",
+    "June - July - August - September": "jjas",
+    "October - November - December": "ond"
+}
+state = StringVar()
+month = StringVar()
 
-Label().grid(row=2)
-state_selection_label = Label(
-    window, text="Select State").grid(row=3, column=5)
-month_selection_label = Label(window, text="Month").grid(row=4, column=5)
+main_object = main()
+[x, y] = main_object.prepare_data()
 
-# Entry(window).grid(row=3, column=6)
-clicked = StringVar()
-clicked.set("Please Select")
-state_selected = OptionMenu(
-    window, clicked, *state_options).grid(row=3, column=6)
-month_selected = OptionMenu(
-    window, clicked, *month_options).grid(row=4, column=6)
+[x_train, x_test, y_train, y_test] = main_object.prepare_model(x, y)
+# print([x_train, x_test, y_train, y_test])
 
 
-btn = ttk.Button(window, text="Submit").grid(row=5, column=6)
+def output_to_gui():
+    results = open('output.json', 'r')
+    results = json.load(results)
+    for result in results['scores']:
+        print(result)
+        Label(window, text=result['algorithm']).grid(row=8, column=5)
+        Label(window, text=result['prediction']).grid(row=9, column=5)
+        Label(window, text=result['accuracy']).grid(row=10, column=5)
+        break
 
+
+def run_algorithms():
+    print(state.get())
+    print(month.get())
+    main_object.knn_algorithm(x_train, x_test, y_train,
+                              y_test, state.get(), month_options[month.get()])
+    main_object.logistic_regression(x_train, x_test, y_train,
+                                    y_test, state.get(), month_options[month.get()])
+    main_object.support_vector_algorithm(x_train, x_test, y_train,
+                                         y_test, state.get(), month_options[month.get()])
+    main_object.decision_tree(x_train, x_test, y_train,
+                              y_test, state.get(), month_options[month.get()])
+    output_to_gui()
+    return
+
+
+def state_and_month_selection():
+    # Lables for the drop-down menus
+    state_selection_label = Label(
+        window, text="Select State/Region").grid(row=3, column=5)
+    month_selection_label = Label(
+        window, text="Select Month").grid(row=4, column=5)
+
+    # State drop-down menu
+    state.set("Please Select")
+    state_selected = OptionMenu(
+        window, state, *state_options).grid(row=3, column=6)
+
+    # Month dropdown menu
+    month.set("Please Select")
+    month_selected = OptionMenu(
+        window, month, *month_options).grid(row=4, column=6)
+
+    # Submit Button
+    btn = ttk.Button(window, text="Submit",
+                     command=run_algorithms).grid(row=5, column=6)
+
+
+def gui_base():
+    window.title("Flood Prediction using ML")
+    width = window.winfo_screenwidth()
+    height = window.winfo_screenheight()
+
+    window.geometry("%dx%d" % (width-50, height-50))
+    window.configure(background="grey")
+
+    Label(window, text="Flood Prediction using Machine Learning",
+          font=("Arial", 25)).grid(row=0, column=5)
+    Label().grid(row=2)         # Empty Line
+
+
+gui_base()
+state_and_month_selection()
 
 window.mainloop()

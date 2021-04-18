@@ -34,12 +34,12 @@ class prepare_data:
         x = data.iloc[:, 1:19]
         y = data.iloc[:, -1]
 
-        # Plotting the data in the graph
+        # # Plotting the data in the graph
 
         # c = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
         #           'jul', 'aug', 'sep', 'oct', 'nov', 'dec']]
         # c.hist()
-        # plt.show()
+        # # plt.show()
 
         # ax = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
         #            'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'jf', 'mam', 'jjas', 'ond']].mean().plot.bar(width=0.5, edgecolor='k', align='center', linewidth=2, figsize=(14, 6))
