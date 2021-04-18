@@ -7,9 +7,12 @@ from logistic_regression import logistic_regression
 from support_vector_algorithm import support_vector_algorithm
 from decision_tree import decision_tree
 from print_to_file import print_to_file
-import os
+from clear_file import clear_file
+import json
 
-os.remove("OutputFile.txt")
+clear_file().clear_output_file()
+
+
 # Initalizing the prepare data by passing the CSV data file and getting the x and y values by calling the function.
 [x, y] = prepare_data('data/data_in_csv.csv').prepare()
 
@@ -29,6 +32,7 @@ os.remove("OutputFile.txt")
 print(
     f"KNN Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
 print_to_file("K Nearest Neighbor", prediction, accuracy).print_output_file()
+
 
 # Initializing the Logistic Regression Algorithm by providing x_train, x_test, y_train, y_test and getting the predicted values.
 [y_predict, accuracy_score] = logistic_regression(
