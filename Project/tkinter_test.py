@@ -76,12 +76,31 @@ main_object = main()
 def output_to_gui():
     results = open('output.json', 'r')
     results = json.load(results)
+    row_value = 10
+
     for result in results['scores']:
         print(result)
-        Label(window, text=result['algorithm']).grid(row=8, column=5)
-        Label(window, text=result['prediction']).grid(row=9, column=5)
-        Label(window, text=result['accuracy']).grid(row=10, column=5)
-        break
+        Label(window, text="Algorithm:",
+              font=("Helvetica", 25)).grid(row=row_value, column=4)
+        Label(window, text=result['algorithm'], font=(
+            "Helvetica", 25)).grid(row=row_value, column=5)
+
+        Label(window, text="Prediction:",
+              font=("Helvetica", 25)).grid(row=row_value, column=4)
+        if(result['prediction'] == 'Yes'):
+            Label(window, text="Yes it will flood!", font=(
+                "Helvetica", 25)).grid(
+                row=row_value+1, column=5)
+        else:
+            Label(window, text="No it will not flood!", font=(
+                "Helvetica", 25)).grid(
+                row=row_value+1, column=5)
+        Label(window, text="Accuracy (in %):",
+              font=("Helvetica", 25)).grid(row=row_value, column=4)
+        Label(window, text=result['accuracy'], font=(
+            "Helvetica", 25)).grid(row=row_value+2, column=5)
+        Label().grid(row=row_value+3)
+        row_value += 4
 
 
 def run_algorithms():
