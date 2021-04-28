@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from main import main
+from get_local_weather import get_weather
 import json
 
 # Global variables
