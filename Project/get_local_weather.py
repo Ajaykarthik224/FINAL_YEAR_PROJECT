@@ -12,4 +12,4 @@ def get_weather():
     return weather_info['main']
 
 
-print(get_weather())
+# print(get_weather())
