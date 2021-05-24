@@ -4,6 +4,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+import annual_rainfall as annual_rainfall
 
 state_list = [
     "Andaman & Nicobar Islands",
@@ -137,7 +138,7 @@ class Window2(QWidget):
     def on_go_btn_clicked(self):
         # print(self.comboboxState.currentText())
         # print(self.comboboxMonth.currentText())
-
+        annual_rainfall.show_graph(self.comboboxState.currentText())
         self.w = Home(self.comboboxState.currentText(),
                       month_options[self.comboboxMonth.currentText()])
         self.w.show()
