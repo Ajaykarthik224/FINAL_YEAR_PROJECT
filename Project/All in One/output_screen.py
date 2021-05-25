@@ -4,25 +4,17 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 # import get_local_weather
-
+from all_in_one import all_in_one
 import json
 
 selected_state = ''
 
 
 def run_algorithms(state, month):
-    main_object = main()
-    [x, y] = main_object.prepare_data()
-
-    [x_train, x_test, y_train, y_test] = main_object.prepare_model(x, y)
-    main_object.knn_algorithm(x_train, x_test, y_train,
-                              y_test, state, month)
-    main_object.logistic_regression(x_train, x_test, y_train,
-                                    y_test, state, month)
-    main_object.support_vector_algorithm(x_train, x_test, y_train,
-                                         y_test, state, month)
-    main_object.decision_tree(x_train, x_test, y_train,
-                              y_test, state, month)
+    all_in_one.knn_algorithm(state, month)
+    # all_in_one.logistic_regression(state, month)
+    # all_in_one.support_vector_algorithm(state, month)
+    # all_in_one.decision_tree(state, month)
 
 
 class Home(QWidget):
