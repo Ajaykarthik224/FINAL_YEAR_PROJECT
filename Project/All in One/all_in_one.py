@@ -14,6 +14,8 @@ from sklearn import model_selection, neighbors
 from sklearn import preprocessing
 from get_prediction_and_accuracy import get_prediction_and_accuracy
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
 
 
 def write_json(data, filename='output.json'):
@@ -84,25 +86,25 @@ figManager.window.showMaximized()
 
 # Plotting the data in the graph
 
-c = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
-          'jul', 'aug', 'sep', 'oct', 'nov', 'dec']].mean().plot.line()
-# c.hist()
-plt.xlabel('Month', fontsize=20)
-plt.ylabel('Mean Rainfall in mm', fontsize=20)
-plt.show()
+# c = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+#           'jul', 'aug', 'sep', 'oct', 'nov', 'dec']].mean().plot.line()
+# # c.hist()
+# plt.xlabel('Month', fontsize=20)
+# plt.ylabel('Mean Rainfall in mm', fontsize=20)
+# plt.show()
 
-# time.sleep(5)
-figManager = plt.get_current_fig_manager()
-figManager.window.showMaximized()
-ax = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
-           'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'jf', 'mam', 'jjas', 'ond']].mean().plot.bar(width=0.5, edgecolor='k', align='center', linewidth=2)
-plt.xlabel('Month', fontsize=30)
-plt.ylabel('Monthly Rainfall', fontsize=20)
-plt.title('Rainfall in India for all Months', fontsize=25)
-ax.tick_params(labelsize=20)
-plt.grid()
-plt.ioff()
-plt.show()
+# # time.sleep(5)
+# figManager = plt.get_current_fig_manager()
+# figManager.window.showMaximized()
+# ax = data[['jan', 'feb', 'mar', 'apr', 'may', 'jun',
+#            'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'jf', 'mam', 'jjas', 'ond']].mean().plot.bar(width=0.5, edgecolor='k', align='center', linewidth=2)
+# plt.xlabel('Month', fontsize=30)
+# plt.ylabel('Monthly Rainfall', fontsize=20)
+# plt.title('Rainfall in India for all Months', fontsize=25)
+# ax.tick_params(labelsize=20)
+# plt.grid()
+# plt.ioff()
+# plt.show()
 
 # prepare_model.py
 minmax = preprocessing.MinMaxScaler(feature_range=(0, 1))
@@ -137,7 +139,7 @@ knn_proba = cross_val_predict(
 #       (recall_score(y_test, y_predict)*100))
 # print("ROC score:%f" % (roc_auc_score(y_test, y_predict)*100))
 # print(confusion_matrix(y_test, y_predict))
-accuracy_score = accuracy_score(y_test, y_predict)*100
+accuracy_scores = accuracy_score(y_test, y_predict)*100
 
 # print_to_file.py
 
@@ -158,7 +160,7 @@ def print_output_file(algorithm, prediction, accuracy):
 
 def knn_algorithm(state_selected, month_selected):
     [prediction, accuracy] = get_prediction_and_accuracy(
-        y_predict, accuracy_score, state_selected, month_selected).display_result()
+        y_predict, accuracy_scores, state_selected, month_selected).display_result()
     print(
         f"KNN Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
     print_output_file("K Nearest Neighbor", prediction, accuracy)
@@ -184,28 +186,69 @@ y_pred = lr.predict(x_test)
 #       (recall_score(y_test, y_predict)*100))
 # print("ROC score:%f" % (roc_auc_score(y_test, y_predict)*100))
 # print(confusion_matrix(y_test, y_predict))
-accuracy_score = accuracy_score(y_test, y_pred))*100
+accuracy_scores = accuracy_score(y_test, y_pred)*100
 
 
 def logistic_regression(state_selected, month_selected):
-    [prediction, accuracy]=get_prediction_and_accuracy(
-        y_predict, accuracy_score, state_selected, month_selected).display_result()
+    [prediction, accuracy] = get_prediction_and_accuracy(
+        y_predict, accuracy_scores, state_selected, month_selected).display_result()
     print(
         f"Logistic Regression Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
     print_output_file("Logistic Regression", prediction, accuracy)
 
 
+# Support Vector Machine
+minmax = preprocessing.MinMaxScaler(feature_range=(0, 1))
+x_train_std = minmax.fit_transform(x_train)
+y_train_std = minmax.transform(x_test)
+
+svc = SVC(kernel='rbf', probability=True)
+svc_classifier = svc.fit(x_train, y_train)
+svc_acc = cross_val_score(svc_classifier, x_train_std,
+                          y_train, cv=3, scoring="accuracy", n_jobs=-1)
+svc_proba = cross_val_predict(
+    svc_classifier, x_train_std, y_train, cv=3, method='predict_proba')
+svc_scores = svc_proba[:, 1]
+y_predict = svc_classifier.predict(x_test)
+# print("Actual Flood Values:")
+# print(y_test.values)
+# print("Predicted Flood Values:")
+# print(y_pred)
+
+accuracy_scores = accuracy_score(y_test, y_predict)*100
+
+
 def support_vector_algorithm(state_selected, month_selected):
-    [prediction, accuracy]=get_prediction_and_accuracy(
-        y_predict, accuracy_score, state_selected, month_selected).display_result()
+    [prediction, accuracy] = get_prediction_and_accuracy(
+        y_predict, accuracy_scores, state_selected, month_selected).display_result()
     print(
         f"Support Vector Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
     print_output_file("Support Vector", prediction, accuracy)
 
 
+# Decision Tree
+
+minmax = preprocessing.MinMaxScaler(feature_range=(0, 1))
+x_train_std = minmax.fit_transform(x_train)
+x_test_std = minmax.fit_transform(x_test)
+
+dtc_clf = DecisionTreeClassifier()
+dtc_clf.fit(x_train, y_train)
+dtc_clf_acc = cross_val_score(
+    dtc_clf, x_train_std, y_train, cv=3, scoring="accuracy", n_jobs=-1)
+
+# print("Predicted Values:")
+y_predict = dtc_clf.predict(x_test)
+
+# print("Actual Values:")
+# print(y_test.values)
+
+accuracy_scores = accuracy_score(y_test, y_predict)*100
+
+
 def decision_tree(state_selected, month_selected):
-    [prediction, accuracy]=get_prediction_and_accuracy(
-        y_predict, accuracy_score, state_selected, month_selected).display_result()
+    [prediction, accuracy] = get_prediction_and_accuracy(
+        y_predict, accuracy_scores, state_selected, month_selected).display_result()
     print(
         f"Decision Tree Algorithm: Prediction '{prediction}' with Accuracy of {accuracy}%")
     print_output_file("Decision Tree", prediction, accuracy)
