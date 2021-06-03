@@ -1,5 +1,5 @@
 import requests
-from data import config
+import config
 
 
 def get_weather():

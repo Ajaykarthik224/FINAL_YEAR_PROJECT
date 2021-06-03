@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def show_graph(subdivision):
-    file = open('data/data.json')
+    file = open('data.json')
     data = json.load(file)
     years = []
     rainfall = []

@@ -3,8 +3,8 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-# import get_local_weather
-from all_in_one import all_in_one
+import get_local_weather
+import all_in_one
 import json
 
 selected_state = ''
