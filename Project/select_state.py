@@ -214,13 +214,13 @@ class Window2(QWidget):
             x = msg2.exec_()
         else:
             annual_rainfall.show_graph(self.comboboxState.currentText())
-            prepare_data_graph.prepare()
+            # prepare_data_graph.prepare()
             self.w = Home(self.comboboxState.currentText(),
                           month_options[self.comboboxMonth.currentText()])
             self.w.show()
             self.close()
 
 
-app = QApplication(sys.argv)
-w = Window2()
-sys.exit(app.exec_())
+# app = QApplication(sys.argv)
+# w = Window2()
+# sys.exit(app.exec_())

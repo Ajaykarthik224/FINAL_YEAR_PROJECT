@@ -48,7 +48,7 @@ def prepare():
     plt.ioff()
     plt.show()
 
-    return 0
+    return
 
 
 # prepare_data('data/data_in_csv.csv').prepare()
