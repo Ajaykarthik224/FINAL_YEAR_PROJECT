@@ -3,22 +3,22 @@
         {
             "algorithm": "K Nearest Neighbor",
             "prediction": "No",
-            "accuracy": 80.92
+            "accuracy": 82.68
         },
         {
             "algorithm": "Logistic Regression",
             "prediction": "No",
-            "accuracy": 84.4
+            "accuracy": 85.04
         },
         {
             "algorithm": "Support Vector",
             "prediction": "No",
-            "accuracy": 81.76
+            "accuracy": 87.28
         },
         {
             "algorithm": "Decision Tree",
             "prediction": "No",
-            "accuracy": 89.0
+            "accuracy": 81.0
         }
     ]
 }

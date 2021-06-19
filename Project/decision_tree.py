@@ -27,5 +27,11 @@ class decision_tree:
 
         # print("Actual Values:")
         # print(y_test.values)
+        # print("\nAccuracy Score:%f" %
+        #       (accuracy_score(self.y_test, y_predict)*100))
+        # print("Recall Score:%f" %
+        #       (recall_score(self.y_test, y_predict)*100))
+        # print("ROC score:%f" % (roc_auc_score(self.y_test, y_predict)*100))
+        # print(confusion_matrix(self.y_test, y_predict))
 
         return [y_predict, accuracy_score(self.y_test, y_predict)*100]

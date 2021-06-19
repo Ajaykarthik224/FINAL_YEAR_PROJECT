@@ -27,9 +27,9 @@ class logistic_regression:
         # print("Predicated value:", y_pred)
 
         # print("\nAccuracy score:%f" %
-        #       (accuracy_score(self.y_test, y_pred)*100))
-        # print("recall score:%f" % (recall_score(y_test, y_pred)*100))
-        # print("roc score:%f" % (roc_auc_score(y_test, y_pred)*100))
-        # print(confusion_matrix(y_test, y_pred))
+        #       (accuracy_score(self.y_test, self.y_pred)*100))
+        # print("recall score:%f" % (recall_score(self.y_test, self.y_pred)*100))
+        # print("roc score:%f" % (roc_auc_score(self.y_test, self.y_pred)*100))
+        # print(confusion_matrix(self.y_test, self.y_pred))
 
         return [y_pred, accuracy_score(self.y_test, y_pred)*100]
