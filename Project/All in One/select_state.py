@@ -145,6 +145,6 @@ class Window2(QWidget):
         self.close()
 
 
-# app = QApplication(sys.argv)
-# w = Window2()
-# sys.exit(app.exec_())
+app = QApplication(sys.argv)
+w = Window2()
+sys.exit(app.exec_())

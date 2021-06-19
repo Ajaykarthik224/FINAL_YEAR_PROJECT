@@ -3,9 +3,10 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-# import get_local_weather
-
+import get_local_weather
+from main import main
 import json
+
 
 selected_state = ''
 
@@ -53,18 +54,19 @@ class Home(QWidget):
 
         # add a label to display weather
         self.label4 = QLabel(self)
-        self.label4.resize(80, 20)
-        self.label4.move(550, 5)
-        self.label4.setText("Weather:")
+        self.label4.resize(500, 20)
+        self.label4.move(400, 5)
+        self.label4.setText(f"Weather in {selected_state}:")
         self.label4.setStyleSheet(
             "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
         # add label to display value of weather
         self.label5 = QLabel(self)
         self.label5.resize(100, 20)
-        self.label5.move(650, 5)
+        self.label5.move(500, 30)
         # instead of 'data' add weather data
-        weather_info = get_local_weather.get_weather()
-        self.label5.setText(str(weather_info['temp'])+u"\N{DEGREE SIGN}"+"C")
+        weather_info = get_local_weather.get_place_weather(selected_state)
+        self.label5.setText(
+            str(weather_info['main']['temp'])+u"\N{DEGREE SIGN}"+"C")
         self.label5.setStyleSheet(
             "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
 

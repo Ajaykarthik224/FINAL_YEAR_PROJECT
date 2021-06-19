@@ -4,6 +4,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+
 counter = 0
 
 
@@ -14,7 +15,11 @@ class Window(QWidget):
 
     def main_window(self):
         # Setting the widget or window
-        self.resize(400, 300)
+        screen = QApplication.primaryScreen()
+        width = screen.size().width()
+        height = screen.size().height()
+
+        self.resize(width, height)
         self.setWindowTitle("Test Window")
         self.setMinimumSize(400, 300)
         self.setMaximumSize(400, 300)
