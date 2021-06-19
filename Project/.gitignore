@@ -1,6 +1,0 @@
-*.pyc
-prepare_data_temp.py
-*.txt
-config.py
-*.csv
-Data/check.py
