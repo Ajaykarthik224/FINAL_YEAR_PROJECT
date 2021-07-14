@@ -156,20 +156,20 @@ class Home(QWidget):
             "color:#FFFFFF;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
 
         # add a label to display prediction
-        self.label2 = QLabel(self)
-        self.label2.resize(100, 20)
-        self.label2.move(350, 320)
-        self.label2.setText("Prediction:")
-        self.label2.setStyleSheet(
-            "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
+        # self.label2 = QLabel(self)
+        # self.label2.resize(100, 20)
+        # self.label2.move(350, 320)
+        # self.label2.setText("Prediction:")
+        # self.label2.setStyleSheet(
+        #     "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
 
-        # # add a label for prediction value
-        self.label3 = QLabel(self)
-        self.label3.resize(50, 20)
-        self.label3.move(450, 320)
-        self.label3.setText(results['scores'][3]['prediction'])
-        self.label3.setStyleSheet(
-            "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
+        # # # add a label for prediction value
+        # self.label3 = QLabel(self)
+        # self.label3.resize(50, 20)
+        # self.label3.move(450, 320)
+        # self.label3.setText(results['scores'][3]['prediction'])
+        # self.label3.setStyleSheet(
+        #     "color:#8BD8BD;font:15px \"Gill Sans Extrabold\",sans-serif;font-weight:bold;")
         self.show()
 
 
