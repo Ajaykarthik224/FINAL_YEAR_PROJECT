@@ -1,0 +1,24 @@
+{
+    "scores": [
+        {
+            "algorithm": "K Nearest Neighbor",
+            "prediction": "No",
+            "accuracy": 80.4
+        },
+        {
+            "algorithm": "Logistic Regression",
+            "prediction": "No",
+            "accuracy": 82.16
+        },
+        {
+            "algorithm": "Support Vector",
+            "prediction": "No",
+            "accuracy": 81.28
+        },
+        {
+            "algorithm": "Decision Tree",
+            "prediction": "No",
+            "accuracy": 86.0
+        }
+    ]
+}
